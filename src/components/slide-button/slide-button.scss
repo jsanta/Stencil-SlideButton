@@ -1,0 +1,60 @@
+.slideBtn-wrapper {
+  max-width: 25rem;
+  width: 100%;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+
+  margin-top: 0.1rem;
+
+  // Ref. https://www.webfx.com/blog/web-design/disable-text-selection/
+  -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* Internet Explorer */
+   -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+  -webkit-user-select: none; /* Chrome, Safari, and Opera */
+  -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
+
+  div {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid gray;
+    height: 3rem;
+    align-items: center;
+    padding: 1px;
+
+    button {
+      font-size: 1rem;
+      height: 3rem;
+      width: auto;
+      background-color: blue;
+      color: white;
+      padding: 0 1.3rem;
+      margin: 0;
+      border: 1px solid darkblue;
+
+      transform: translateX(0px);
+      transition: 0.1s linear;
+    }
+    button[disabled] {
+      background-color: gray;
+    }
+
+    span {
+      display: inline-block;
+      max-width: 5rem;
+      width: 5rem;
+      text-align: center;
+      margin-left: auto;
+      padding: 0.5rem;
+    }
+
+
+  }
+
+  p {
+    text-align: center;
+    margin: 0.1rem 0;
+    padding: 0;
+  }
+
+}
