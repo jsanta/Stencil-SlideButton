@@ -4,12 +4,36 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
-  <script src="/build/mycomponent.js"></script>
+  <script src="/build/slide-button.js"></script>
 
 </head>
 <body>
 
-  <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+  <slide-button
+    buttontext="Autorizar"
+    helpertext="Deslice para autorizar"
+    instructions="Presione para activar"
+    boundary=0
+    disabled=true
+    ></slide-button>
 
+    <script>
+        const slideBtnElement = document.querySelector('slide-button');
+        slideBtnElement.addEventListener('onSlideReady', evtData => {
+          console.log(evtData);
+          alert('Slide btn ready\n' + JSON.stringify(evtData, null, 2));
+          setTimeout(function() {
+            slideBtnElement.endDrag(evtData.detail.evt);
+            slideBtnElement.disabled      = true;
+            slideBtnElement.instructions  = 'Presione para activar';
+            (evtData.detail.target).style.transform = 'translateX(0px)';
+          }, 1500);
+        });
+        slideBtnElement.addEventListener('click', evtData => {
+          slideBtnElement.disabled     = false;
+          slideBtnElement.instructions = 'Ya sabes que hacer...';
+        });
+
+      </script>
 </body>
 </html>
