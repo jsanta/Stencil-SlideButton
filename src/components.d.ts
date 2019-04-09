@@ -12,58 +12,46 @@ import '@stencil/core';
 
 export namespace Components {
 
-  interface MyComponent {
-    /**
-    * The first name
-    */
-    'first': string;
-    /**
-    * The last name
-    */
-    'last': string;
-    /**
-    * The middle name
-    */
-    'middle': string;
+  interface SlideButton {
+    'boundary': number;
+    'buttontext': string;
+    'disabled': boolean;
+    'endDrag': (e: any) => void;
+    'helpertext': string;
+    'instructions': string;
   }
-  interface MyComponentAttributes extends StencilHTMLAttributes {
-    /**
-    * The first name
-    */
-    'first'?: string;
-    /**
-    * The last name
-    */
-    'last'?: string;
-    /**
-    * The middle name
-    */
-    'middle'?: string;
+  interface SlideButtonAttributes extends StencilHTMLAttributes {
+    'boundary'?: number;
+    'buttontext'?: string;
+    'disabled'?: boolean;
+    'helpertext'?: string;
+    'instructions'?: string;
+    'onOnSlideReady'?: (event: CustomEvent) => void;
   }
 }
 
 declare global {
   interface StencilElementInterfaces {
-    'MyComponent': Components.MyComponent;
+    'SlideButton': Components.SlideButton;
   }
 
   interface StencilIntrinsicElements {
-    'my-component': Components.MyComponentAttributes;
+    'slide-button': Components.SlideButtonAttributes;
   }
 
 
-  interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
-  var HTMLMyComponentElement: {
-    prototype: HTMLMyComponentElement;
-    new (): HTMLMyComponentElement;
+  interface HTMLSlideButtonElement extends Components.SlideButton, HTMLStencilElement {}
+  var HTMLSlideButtonElement: {
+    prototype: HTMLSlideButtonElement;
+    new (): HTMLSlideButtonElement;
   };
 
   interface HTMLElementTagNameMap {
-    'my-component': HTMLMyComponentElement
+    'slide-button': HTMLSlideButtonElement
   }
 
   interface ElementTagNameMap {
-    'my-component': HTMLMyComponentElement;
+    'slide-button': HTMLSlideButtonElement;
   }
 
 
