@@ -29,11 +29,13 @@
             (evtData.detail.target).style.transform = 'translateX(0px)';
           }, 1500);
         });
-        slideBtnElement.addEventListener('click', evtData => {
+
+        const clickEvt = evtData => {
           slideBtnElement.disabled     = false;
           slideBtnElement.instructions = 'Ya sabes que hacer...';
-        });
-
+        };
+        slideBtnElement.addEventListener('click', clickEvt); // Captures mouse click event
+        slideBtnElement.addEventListener('touchstart', clickEvt); // Captures touch event
       </script>
 </body>
 </html>
