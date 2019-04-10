@@ -102,12 +102,10 @@ export class SlideButton {
 
   render() {
     return (
-      <div class="slideBtn-wrapper"
-        ref={el => this.buttonContainer = el as HTMLElement}
-      >
-          <div>
-          <button
-            type="button"
+      <ion-item class="slideBtn-wrapper"
+        ref={el => this.buttonContainer = el as HTMLElement}>
+
+          <ion-button
             ref={el => this.button = el as HTMLElement}
             onMouseDown={this.activateDrag}
             onMouseMove={this.dragButton}
@@ -116,12 +114,11 @@ export class SlideButton {
             onTouchMove={this.dragButton}
             onTouchEnd={this.endDrag}
             disabled={this.disabled}
-            >{ this.buttontext }</button>
+            >{ this.buttontext }</ion-button>
             <span>{ this.helpertext }</span>
-          </div>
-          <p>{ this.instructions }</p>
-      </div>
 
+          <p>{ this.instructions }</p>
+      </ion-item>
     )
   }
 
