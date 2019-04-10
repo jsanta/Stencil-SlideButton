@@ -8,3 +8,35 @@ This component was generated using the Stencil starter project for building a st
 The Stencil Slide button component is basicaly a slide to unlock component. You'll find many on the web ([believe me, here are the Google results](https://www.google.cl/search?q=javascript+slide+to+unlock+component&oq=javascript+slide+to+unlock+component))
 
 For further information refer to the Stencil documentation at: https://stenciljs.com/docs/introduction
+
+# Available branches
+Currently there are 2 available branches for this component:
+* [master](https://github.com/jsanta/Stencil-SlideButton) : Which has the generic slide button Web component.
+* [ionic-slide](https://github.com/jsanta/Stencil-SlideButton/tree/ionic-slide): Which has an Ionic slide button Web component (with Ionic styles and components).
+
+Also, there's a Ionic Slide Button example app at https://github.com/jsanta/ionic-slidebtn-app
+
+# Running 
+Execute:  
+`npm run start`
+
+# Compilation and packaging
+In the folder where this project code was downloaded execute the following commands:
+```
+rm *-slide-button*.tgz
+npm build
+npm run pack
+```
+This will:
+1. Delete any packaged distribution for this component
+2. Build the web component
+3. Pack the web component to a `tgz` file acording to the version and name configured on the `package.json` file
+
+# Installation
+* Go to https://github.com/jsanta/Stencil-SlideButton/releases
+* Select the desired release (currently 2 options, Slide button Web component or Slide button Ionic component)
+* Download the <release>-slide-button-<version>.tgz file (lets say `ionic-slide-button-1.0.0.tgz` where *ionic* is the release and *1.0.0* is the version)
+* Copy the tgz file to your project's main folder
+* Inside your project's main folder execute `npm install --save ./ionic-slide-button-1.0.0.tgz` (remember to change the tgz filename if necessary).
+
+
