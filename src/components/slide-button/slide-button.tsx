@@ -1,4 +1,4 @@
-import { Component, Prop, Element, Event, EventEmitter, Method } from '@stencil/core';
+import { Component, Prop, Event, EventEmitter, Method } from '@stencil/core';
 
 @Component({
   tag: 'slide-button',
@@ -14,13 +14,13 @@ export class SlideButton {
   }) boundary: number; // cannot button drag past this X position
   @Prop() disabled: boolean;
 
-  @Element() buttonContainer: HTMLElement;
+  private buttonContainer: HTMLElement;
+  private button: HTMLElement;
 
-  button: HTMLElement;
   btnXPos:   number; // original X position for button
   btnWidth:  number; // button width
   clickXPos: number; // position where the button was clicked
-  btnMargin: number = 2;
+  btnMargin: number = 3;
 
   @Event() onSlideReady: EventEmitter;
 
@@ -33,14 +33,17 @@ export class SlideButton {
   }
 
   componentDidLoad() {
-    let btn: any  = this.buttonContainer.shadowRoot;
-    this.button   = btn.querySelectorAll('button')[0];
-    this.btnXPos  = this.button.offsetLeft;
-    this.btnWidth = this.button.offsetWidth;
+    // // let btn: any  = this.buttonContainer;
+    // // this.button   = btn.querySelectorAll('button')[0];
+    // this.btnXPos  = this.button.offsetLeft;
+    // this.btnWidth = this.button.offsetWidth;
 
-    let btnWrapper: any           = btn.querySelectorAll('.slideBtn-wrapper')[0];
-    let btnContainerWidth: number = btnWrapper.offsetWidth;
-    this.boundary                 = btnContainerWidth - this.btnWidth - ( this.btnMargin + 1 );
+    // // let btnWrapper: any           = btn.querySelectorAll('.slideBtn-wrapper')[0];
+    // let btnContainerWidth: number = this.buttonContainer.offsetWidth;
+    // this.boundary                 = btnContainerWidth - this.btnWidth - ( this.btnMargin + 1 );
+    // console.log('buttonContainer', this.buttonContainer);
+    // console.log('button', this.buttonContainer.children);
+    // console.log('componentDidLoad', btnContainerWidth, this.boundary);
   }
 
   slideReadyHandler(event: any, btn: any) {
@@ -48,6 +51,7 @@ export class SlideButton {
     this.dragActive = false;
     this.onSlideReady.emit({ evt: event, target: btn });
 
+    console.log('SlideReady event emitted');
     // setTimeout(function () {
     //   self.endDrag(event);
     // }, 1500);
@@ -59,6 +63,12 @@ export class SlideButton {
     if (e.target) {
       this.dragActive = true;
       this.clickXPos  = e.clientX || e.changedTouches[0].clientX || e.touches[0].clientX;
+      console.log(this.dragActive, this.clickXPos);
+      console.log('buttonContainer', this.buttonContainer, 'Width: ', this.buttonContainer.offsetWidth);
+
+      let btnWidth: number          = this.button.offsetWidth;
+      let btnContainerWidth: number = this.buttonContainer.offsetWidth;
+      this.boundary                 = btnContainerWidth - btnWidth - ( this.btnMargin + 1 );
     }
   }
   dragButton(e) {
@@ -71,25 +81,34 @@ export class SlideButton {
         btn.style.transform = 'translateX(' + posX + 'px)'; // ; transition: 0.5s ease-in-out;
       } else {
         if (posX >= this.boundary) {
+          console.log('Dragged past boundary. Doing onSlideReady.')
           this.slideReadyHandler(e, btn);
         }
       }
     }
   }
   @Method() endDrag(e) {
-    this.dragActive     = false;
-    let btn: any        = e.target;
-    btn.style.transform = 'translateX(0px)';
+    let posX: number = e.clientX || e.changedTouches[0].clientX || e.touches[0].clientX;
+    posX = posX - this.clickXPos;
+    if (posX < this.boundary) {
+      this.dragActive = false;
+      let btn: any = e.target;
+      btn.style.transform = 'translateX(0px)';
 
+      console.log('endDrag. Resetting button state.');
+    }
     // this.slideReadyHandler(e);
   }
 
   render() {
     return (
-        <div class="slideBtn-wrapper">
+      <div class="slideBtn-wrapper"
+        ref={el => this.buttonContainer = el as HTMLElement}
+      >
           <div>
           <button
             type="button"
+            ref={el => this.button = el as HTMLElement}
             onMouseDown={this.activateDrag}
             onMouseMove={this.dragButton}
             onMouseUp={this.endDrag}
