@@ -1,11 +1,7 @@
 .slideBtn-wrapper {
-  max-width: 25rem;
-  width: 100%;
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
-
-  margin-top: 0.1rem;
+  position: relative;
+  padding: 0;
+  margin: 0;
 
   // Ref. https://www.webfx.com/blog/web-design/disable-text-selection/
   -moz-user-select: none; /* Firefox */
@@ -14,13 +10,15 @@
   -webkit-user-select: none; /* Chrome, Safari, and Opera */
   -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
 
-  // div {
+  div {
     display: flex;
     flex-direction: row;
-    border: 1px solid gray;
-    height: 3rem;
     align-items: center;
-    padding: 1px;
+    width: 100%;
+    margin: 0 0 1.3rem;
+    padding-left: 2px;
+    padding-right: 2px;
+    border: 1px solid gray;
 
     ion-button {
       // font-size: 1rem;
@@ -50,11 +48,16 @@
     }
 
 
-  // }
+  }
 
   p {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
     text-align: center;
-    margin: 0.1rem 0;
+    margin: 0;
     padding: 0;
   }
 

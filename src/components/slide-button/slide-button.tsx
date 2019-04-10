@@ -1,4 +1,6 @@
 import { Component, Prop, Event, EventEmitter, Method } from '@stencil/core';
+// Ref. https://stackoverflow.com/questions/52024158/ion-label-component-inside-the-stencil-component-starter-not-getting-rendered
+import '@ionic/core';
 
 @Component({
   tag: 'slide-button',
@@ -20,7 +22,7 @@ export class SlideButton {
   btnXPos:   number; // original X position for button
   btnWidth:  number; // button width
   clickXPos: number; // position where the button was clicked
-  btnMargin: number = 3;
+  btnMargin: number = 9;
 
   @Event() onSlideReady: EventEmitter;
 
@@ -33,28 +35,14 @@ export class SlideButton {
   }
 
   componentDidLoad() {
-    // // let btn: any  = this.buttonContainer;
-    // // this.button   = btn.querySelectorAll('button')[0];
-    // this.btnXPos  = this.button.offsetLeft;
-    // this.btnWidth = this.button.offsetWidth;
-
-    // // let btnWrapper: any           = btn.querySelectorAll('.slideBtn-wrapper')[0];
-    // let btnContainerWidth: number = this.buttonContainer.offsetWidth;
-    // this.boundary                 = btnContainerWidth - this.btnWidth - ( this.btnMargin + 1 );
-    // console.log('buttonContainer', this.buttonContainer);
-    // console.log('button', this.buttonContainer.children);
-    // console.log('componentDidLoad', btnContainerWidth, this.boundary);
+    console.log('componentDidLoad');
   }
 
   slideReadyHandler(event: any, btn: any) {
-    // const self: any = this;
     this.dragActive = false;
     this.onSlideReady.emit({ evt: event, target: btn });
 
     console.log('SlideReady event emitted');
-    // setTimeout(function () {
-    //   self.endDrag(event);
-    // }, 1500);
   }
 
   dragActive: boolean = false;
@@ -97,15 +85,15 @@ export class SlideButton {
 
       console.log('endDrag. Resetting button state.');
     }
-    // this.slideReadyHandler(e);
   }
 
   render() {
     return (
       <ion-item class="slideBtn-wrapper"
-        ref={el => this.buttonContainer = el as HTMLElement}>
-
+        lines="none">
+        <div ref={el => this.buttonContainer = el as HTMLElement}>
           <ion-button
+            size="default"
             ref={el => this.button = el as HTMLElement}
             onMouseDown={this.activateDrag}
             onMouseMove={this.dragButton}
@@ -115,9 +103,9 @@ export class SlideButton {
             onTouchEnd={this.endDrag}
             disabled={this.disabled}
             >{ this.buttontext }</ion-button>
-            <span>{ this.helpertext }</span>
-
-          <p>{ this.instructions }</p>
+          <span>{ this.helpertext }</span>
+        </div>
+        <p>{ this.instructions }</p>
       </ion-item>
     )
   }
